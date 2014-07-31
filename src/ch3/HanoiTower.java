@@ -17,51 +17,54 @@ import java.util.Stack;
  * }
  */
 public class HanoiTower {
-	private Stack<Integer> disks;
-	private int index;
-	
-	public int index(){
-		return index;
-	}
-	public HanoiTower(int i){
-		disks = new Stack<Integer>();
-		index = i;
-	}
-	public void push(int d){
-		if( !disks.isEmpty() && disks.peek() <= d){
-			System.out.println("error");
-		} else{
-			disks.push(d);
-		}
-	}
-	public void moveTopTo(HanoiTower tar){
-		tar.push(disks.pop());
-	}
-	
-	public void moveDisks(int n, HanoiTower destination, HanoiTower buffer){
-		if(n <= 0) return;
-		moveDisks(n-1, buffer,destination);
-		moveTopTo(destination);
-		buffer.moveDisks(n-1, destination, this);
-	}
-	public String toString(){
+
+
+    private Stack<Integer> disks;
+    private int index;
+    public HanoiTower (int i){
+        disks = new Stack<Integer>();
+        index  = i;
+    }
+
+    public void moveDisks(int n, HanoiTower destination, HanoiTower buffer){
+        if(n > 0 ){
+            moveDisks(n-1, buffer, destination);
+            moveTop(destination);
+            buffer.moveDisks(n-1,destination,this);
+        }
+    }
+
+    public void add(int d){
+       if(!disks.isEmpty() && disks.peek() <= d){
+           System.out.println("cant add bigger on top of small ones");
+       } else {
+           disks.push(d);
+       }
+    }
+
+    public void moveTop(HanoiTower t){
+        int top = disks.pop();
+        t.add(top);
+    }
+
+    public String toString(){
 		return disks.toString();
 	}
-	
-	public static void main(String[] args) {
-		int n = 5;
-		HanoiTower[] towers = new HanoiTower[3];
-		for(int i= 0; i < 3; ++i){
-			towers[i] = new HanoiTower(i);
-		}
-		
-		for(int i = 5; i > 0 ; i--){
-			towers[0].push(i);
-		}
-		System.out.println(towers[0]);
-		towers[0].moveDisks(n, towers[2], towers[1]);
-		System.out.println(towers[2]);
 
-	}
 
+    public static void main(String[] args) {
+        int n = 5;
+        HanoiTower[] towers = new HanoiTower[3];
+        for(int i= 0; i < 3; ++i){
+            towers[i] = new HanoiTower(i);
+        }
+
+        for(int i = 5; i > 0 ; i--){
+            towers[0].add(i);
+        }
+        System.out.println(towers[0]);
+        towers[0].moveDisks(n, towers[2], towers[1]);
+        System.out.println(towers[2]);
+
+    }
 }
