@@ -1,9 +1,9 @@
 package ch4;
 
+import CtCILibrary.TreeNode;
+
 /*
- * 4.1 check if a binary tree is balanced
- * note: a balanced tree is the heights of two subtrees of any node 
- * never differ by more than one
+ * 4.3 create a minimal BST from sorted arry
  * 
  */
 public class BST {
@@ -11,6 +11,12 @@ public class BST {
 	/**
 	 * @param args
 	 */
+
+    public static TreeNode createMinimalBST(int[] arr, int start, int end){
+
+
+    }
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

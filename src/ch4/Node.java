@@ -1,32 +1,36 @@
 package ch4;
 
-public class Node {
-	
-	public enum State{
-		Unvisited, Visited, Visiting;
-	}
-	private Node adjacent[];
-	private String vertex;
-	public State state;
-	public int adjacentCount;
-	
-	public Node(String vertext, int adjLength){
-		this.vertex = vertext;
-		adjacentCount = 0;
-		adjacent = new Node[adjLength];
-	}
-	
-	public void addAdjacent(Node x){
-		this.adjacent[adjacentCount] = x;
-		adjacentCount++;
-	}
-	
-	public Node[] getAdjacent(){
-		return adjacent;
-	}
-	public String getVertex(){
-		return this.vertex;
-	}
-	
+/**
+ * Created by longwei on 8/9/14.
+ */
 
+
+class Node {
+    public enum State{
+        Unvisited, Visited;
+    }
+    private Node[] adjacent;
+    public int adjacentCount;
+    private String vertex;
+    public State state;
+    public Node(String vertex, int adjacentLength) {
+        this.vertex = vertex;
+        adjacentCount = 0;
+        adjacent = new Node[adjacentLength];
+    }
+
+    public void addAdjacent(Node x) {
+        if (adjacentCount < 30) {
+            this.adjacent[adjacentCount] = x;
+            adjacentCount++;
+        } else {
+            System.out.print("No more adjacent can be added");
+        }
+    }
+    public Node[] getAdjacent() {
+        return adjacent;
+    }
+    public String getVertex() {
+        return vertex;
+    }
 }

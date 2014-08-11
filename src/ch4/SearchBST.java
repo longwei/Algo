@@ -1,19 +1,72 @@
 package ch4;
-import CtCILibrary.*;
+import java.util.LinkedList;
 
+
+/*
+ * 4.2 given a directed graph,find whether there is a route between two nodes.
+ * Sol:
+ * added a check mark in BFS,
+ * DFS may traverse a node very deeply before going onto next neighbors
+ */
 public class SearchBST {
+    public static boolean search(Graph g, Node start, Node end){
+        LinkedList<Node> q = new LinkedList<Node>();
+        for(Node u: g.getNodes()){
+            u.state = Node.State.Unvisited;
+        }
+        start.state = Node.State.Visited;
+        q.add(start);
+        Node u;
+        while(q.size() > 0){
+            u = q.removeFirst();//dequeue
+            if(u != null){
+                for(Node v: u.getAdjacent()){
+                    if(v.state == Node.State.Unvisited){
+                        //find end
+                        if(v == end ){
+                            return true;
+                        }
+                        q.add(v);
+                        //add child to q
+                    }
+                }
+            }
+        }
+        return false;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+    }
 
-	}
-	
-//	public static boolean search(Graph root, Node){
-//
-//	}
-	
+
+    public static void main(String a[])
+    {
+        Graph g = createNewGraph();
+        Node[] n = g.getNodes();
+        Node start = n[3];
+        Node end = n[5];
+        System.out.println(search(g, start, end));
+    }
+
+    public static Graph createNewGraph()
+    {
+        Graph g = new Graph();
+        Node[] temp = new Node[6];
+
+        temp[0] = new Node("a", 3);
+        temp[1] = new Node("b", 0);
+        temp[2] = new Node("c", 0);
+        temp[3] = new Node("d", 1);
+        temp[4] = new Node("e", 1);
+        temp[5] = new Node("f", 0);
+
+        temp[0].addAdjacent(temp[1]);
+        temp[0].addAdjacent(temp[2]);
+        temp[0].addAdjacent(temp[3]);
+        temp[3].addAdjacent(temp[4]);
+        temp[4].addAdjacent(temp[5]);
+        for (int i = 0; i < 6; i++) {
+            g.addNode(temp[i]);
+        }
+        return g;
+    }
 
 }
